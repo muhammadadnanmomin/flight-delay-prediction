@@ -6,7 +6,7 @@ The system is deployed as a Dockerized Streamlit application on an AWS EC2 serve
 
 ## 🚀 Live Demo
 
-App URL: http://16.16.251.222/
+App URL: https://flight-delay-app.streamlit.app/
 
 ## 📌 Overview
 
