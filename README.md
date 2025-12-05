@@ -1,14 +1,14 @@
-# ✈️ Flight Delay Minutes Prediction
+# Flight Delay Minutes Prediction
 ### End-to-End Machine Learning Project | Streamlit App | Docker Deployment | AWS EC2
 
 This project predicts total monthly delay minutes for any U.S. airline–airport combination using Machine Learning (XGBoost).
 The system is deployed as a Dockerized Streamlit application on an AWS EC2 server.
 
-## 🚀 Live Demo
+## Live Demo
 
 App URL: https://flight-delay-app.streamlit.app/
 
-## 📌 Overview
+## Overview
 
 Flight delays are a major challenge for airlines and airports.
 This project uses historical U.S. Department of Transportation (BTS) data (170k+ records) to:
@@ -31,7 +31,7 @@ This project uses historical U.S. Department of Transportation (BTS) data (170k+
 - Cloud Deployment (AWS EC2)
 - GitHub Project Management
 
-## 🧠 Machine Learning Model
+## Machine Learning Model
 
 Model used: XGBoost Regressor
 
@@ -43,7 +43,7 @@ Model used: XGBoost Regressor
 
 XGBoost was chosen for deployment due to its high accuracy and ability to generalize well.
 
-## 📂 Project Structure
+## Project Structure
 
 ```flight-delay-prediction/
 │
@@ -64,7 +64,7 @@ XGBoost was chosen for deployment due to its high accuracy and ability to genera
 └── .gitignore                           # Git ignore rules
 ```
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 #### Languages & Libraries
 
@@ -84,9 +84,9 @@ XGBoost was chosen for deployment due to its high accuracy and ability to genera
   - Git + GitHub
 
 
-## 🌐 Streamlit App Features
+## Streamlit App Features
 
-#### 🔹 User Inputs
+#### 1. User Inputs
 
   - Airline (carrier)
   - Airport
@@ -97,7 +97,7 @@ XGBoost was chosen for deployment due to its high accuracy and ability to genera
   - Delay rate
   - Total delay causes
 
-#### 🔹 Outputs
+#### 2. Outputs
 
   - Predicted total delay minutes
   - Converted value:
@@ -105,7 +105,7 @@ XGBoost was chosen for deployment due to its high accuracy and ability to genera
   - Days
   - Clean UI with tooltips and explanations
 
-## 🧪 Test Cases
+## Test Cases
 
 Sample test cases are included in **[test_cases.txt](test_cases.txt)**.  
 Users can copy the values and enter them directly in the Streamlit app.
@@ -117,7 +117,7 @@ This helps quickly verify:
 - Different airports
 - Seasonal patterns
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 #### Build image
 
@@ -127,7 +127,7 @@ This helps quickly verify:
 
 ```docker run -p 8501:8501 flight-delay-app```
 
-## ☁️ AWS EC2 Deployment (Production)
+## AWS EC2 Deployment (Production)
 
 #### 1. Install Docker
 
@@ -156,7 +156,7 @@ cd flight-delay-prediction
 ```http://16.16.251.222/```
 
 
-## 📈 Model Training Pipeline
+## Model Training Pipeline
   
   1. Data cleaning
   2. Handling missing values
@@ -167,7 +167,7 @@ cd flight-delay-prediction
   7. Evaluation
   8. Saving model using Joblib
 
-## 📊 EDA Highlights
+## EDA Highlights
 
   - Delay distribution across airlines
   - Delay causes (weather, carrier, NAS, etc.)
@@ -175,9 +175,10 @@ cd flight-delay-prediction
   - Airport-wise delay analysis
   - Correlation heatmap
 
-## ✨ Author
+## Author
 
 Adnan Momin
 
 LinkedIn: https://www.linkedin.com/in/adnanmomin/
+
 GitHub: https://github.com/muhammadadnanmomin
