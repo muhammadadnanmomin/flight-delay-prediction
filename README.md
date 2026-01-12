@@ -1,47 +1,108 @@
 # Flight Delay Minutes Prediction
-### End-to-End Machine Learning Project | Streamlit App | Docker Deployment | AWS EC2
+### End-to-End Machine Learning System | XGBoost | Streamlit | Docker | AWS
+Live App: https://flight-delay-app.streamlit.app/
 
-This project predicts total monthly delay minutes for any U.S. airline–airport combination using Machine Learning (XGBoost).
-The system is deployed as a Dockerized Streamlit application on an AWS EC2 server.
+## Problem Statement
+Flight delays create major operational challenges for airlines and airports, impacting customer satisfaction, scheduling, and costs.
+Most publicly available datasets provide historical insights but do not offer a predictive, interactive system for estimating future delay impact.
 
-## Live Demo
+This project builds a production-ready machine learning system to predict total monthly delay minutes for any U.S. airline–airport combination using historical DOT (BTS) data.
 
-App URL: https://flight-delay-app.streamlit.app/
+## Why This Project Matters
+Accurate delay estimation helps with:
 
-## Overview
+- Capacity planning
+- Crew scheduling
+- Resource allocation
+- Disruption management
+- Customer experience optimization
 
-Flight delays are a major challenge for airlines and airports.
-This project uses historical U.S. Department of Transportation (BTS) data (170k+ records) to:
+This project goes beyond modeling and demonstrates a full ML lifecycle:
+from raw data → features → model → deployment → user-facing application.
 
-- Predict total monthly delay minutes
+## Dataset
+Source: U.S. Department of Transportation (BTS)
+Size: 170,000+ monthly aggregated records
+Granularity: Airline × Airport × Month
+Time Range: Multi-year historical data
 
-- Visualize features and important patterns
+Key Variables
 
-- Provide an interactive Streamlit dashboard
+- Airline (carrier)
+- Airport
+- Month / Year
+- Arrival flight counts
+- Cancellations and diversions
+- Delay causes (weather, NAS, carrier, etc.)
+- Target: Total delay minutes
 
-- Deploy using Docker + AWS
+## Approach
+#### 1. Exploratory Data Analysis (EDA)
 
-#### It demonstrates skills in:
+- Delay distribution across airlines
+- Seasonal and monthly patterns
+- Airport-wise congestion analysis
+- Correlation analysis of delay causes
 
-- Machine Learning
-- Feature Engineering
-- Model Training & Evaluation
-- Streamlit Web Development
-- Docker Containerization
-- Cloud Deployment (AWS EC2)
-- GitHub Project Management
+#### 2. Feature Engineering
 
-## Machine Learning Model
+- Seasonal encoding
+- Temporal features
+- Airline- and airport-specific behavior patterns
+- Aggregated delay cause features
 
-Model used: XGBoost Regressor
+#### 3. Modeling
 
-| Metric       | Score     |
-| ------------ | --------- |
-| **R² Score** | **0.947** |
-| **RMSE**     | 456       |
-| **MAE**      | 280       |
+- Trained and compared multiple regression models
+- Selected XGBoost for its non-linearity handling and generalization
 
-XGBoost was chosen for deployment due to its high accuracy and ability to generalize well.
+#### 4. Evaluation
+
+- Used R², RMSE, and MAE for performance comparison
+- Conducted error analysis to understand failure cases
+
+#### 5. Deployment
+
+- Built an interactive Streamlit app
+- Containerized using Docker
+- Deployed on AWS EC2
+
+## Model Performance
+Final Model: XGBoost Regressor
+| Metric | Value |
+| ------ | ----- |
+| R²     | 0.947 |
+| RMSE   | 456   |
+| MAE    | 280   |
+
+XGBoost was chosen due to its ability to capture nonlinear relationships and perform well on structured tabular data.
+
+## Web Application Features
+#### User Inputs
+- Airline
+- Airport
+- Year & Month
+- Season
+- Arrival flights
+- Cancelled/diverted flights
+- Delay rate
+- Delay cause breakdown
+
+#### Outputs
+- Predicted total delay minutes
+- Converted to:
+  - Hours
+  - Days
+    - Clear UI with tooltips and explanations
+
+This allows users to run what-if scenarios and explore delay behavior interactively.
+
+## Test Cases
+Predefined test cases are available in test_cases.txt to validate:
+- High-delay scenarios
+- Low-delay scenarios
+- Airline-specific patterns
+- Seasonal variations
 
 ## Project Structure
 
@@ -64,116 +125,63 @@ XGBoost was chosen for deployment due to its high accuracy and ability to genera
 └── .gitignore                           # Git ignore rules
 ```
 
-## Technologies Used
-
+## Tech Stack
 #### Languages & Libraries
 
-  - Python
-  - Pandas
-  - NumPy
-  - Scikit-learn
-  - XGBoost
-  - Joblib
-  - Streamlit
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- XGBoost
+- Joblib
+- Streamlit
 
 #### Deployment
 
-  - Docker
-  - AWS EC2
-  - Linux (Ubuntu 22.04)
-  - Git + GitHub
+- Docker
+- AWS EC2
+- Linux (Ubuntu 22.04)
+- Git + GitHub
 
+## Run Locally with Docker
+#### Build the image
+```
+docker build -t flight-delay-app .
+```
 
-## Streamlit App Features
+#### Run the container
+```
+docker run -p 8501:8501 flight-delay-app
+```
 
-#### 1. User Inputs
-
-  - Airline (carrier)
-  - Airport
-  - Year & Month
-  - Season
-  - Arrival flights
-  - Cancelled/diverted flights
-  - Delay rate
-  - Total delay causes
-
-#### 2. Outputs
-
-  - Predicted total delay minutes
-  - Converted value:
-  - Hours
-  - Days
-  - Clean UI with tooltips and explanations
-
-## Test Cases
-
-Sample test cases are included in **[test_cases.txt](test_cases.txt)**.  
-Users can copy the values and enter them directly in the Streamlit app.
-
-This helps quickly verify:
-- High delay scenarios
-- Low delay scenarios
-- Different airlines
-- Different airports
-- Seasonal patterns
-
-## Docker Deployment
-
-#### Build image
-
-```docker build -t flight-delay-app .```
-
-#### Run container locally
-
-```docker run -p 8501:8501 flight-delay-app```
-
-## AWS EC2 Deployment (Production)
-
-#### 1. Install Docker
-
-```sudo apt update
+☁️ Production Deployment (AWS EC2)
+#### Install Docker
+```
+sudo apt update
 sudo apt install -y docker.io
 sudo systemctl start docker
 sudo usermod -aG docker ubuntu
 ```
 
-#### 2. Clone repository
-
-```git clone https://github.com/muhammadadnanmomin/flight-delay-prediction.git
+#### Clone the repository
+```
+git clone https://github.com/muhammadadnanmomin/flight-delay-prediction.git
 cd flight-delay-prediction
 ```
 
-#### 3. Build image
+#### Build and run
+```
+docker build -t flight-delay-app .
+docker run -d -p 80:8501 flight-delay-app
+```
 
-```docker build -t flight-delay-app .```
+## Key Learnings
 
-#### 4. Run on port 80
-
-```docker run -d -p 80:8501 flight-delay-app```
-
-#### 5. Access the app
-
-```http://16.16.251.222/```
-
-
-## Model Training Pipeline
-  
-  1. Data cleaning
-  2. Handling missing values
-  3. Feature engineering
-  4. Encoding categorical variables
-  5. Train-test split
-  6. Model training (XGBoost)
-  7. Evaluation
-  8. Saving model using Joblib
-
-## EDA Highlights
-
-  - Delay distribution across airlines
-  - Delay causes (weather, carrier, NAS, etc.)
-  - Monthly/seasonal patterns
-  - Airport-wise delay analysis
-  - Correlation heatmap
+- Importance of feature engineering for structured data
+- Tradeoffs between model complexity and interpretability
+- Handling seasonality in tabular ML problems
+- Designing consistent training vs inference pipelines
+- Deploying ML systems for real-world usage
 
 ## Author
 
